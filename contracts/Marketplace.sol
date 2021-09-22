@@ -23,7 +23,7 @@ contract Marketplace is Context, AccessControlEnumerable, ReentrancyGuard {
     }
 
     address public owner;
-    uint96 public platformFeeBasisPoint = 300;
+    uint96 public platformFeeBasisPoint = 30;
 
     struct MarketItem {
         uint256 itemId;
@@ -68,8 +68,9 @@ contract Marketplace is Context, AccessControlEnumerable, ReentrancyGuard {
 
         // Calculate Payouts between seller and platform
         uint256 amountReceived = msg.value;
-        uint256 amountToSeller = (amountReceived * (1000 - platformFeeBasisPoint)) / 1000;
+
         uint256 amountToMarketplace = (amountReceived * platformFeeBasisPoint) / 1000;
+        uint256 amountToSeller = amountReceived - amountToMarketplace;        
 
         idToMarketItem[itemId].seller.transfer(amountToSeller);
         payable(address(owner)).transfer(amountToMarketplace);
@@ -87,12 +88,12 @@ contract Marketplace is Context, AccessControlEnumerable, ReentrancyGuard {
 
         MarketItem[] memory items = new MarketItem[](unsoldItemCount);
         for (uint256 i = 0; i < itemCount; i++) {
-        if (idToMarketItem[i + 1].owner == address(0)) {
-            uint256 currentId = i + 1;
-            MarketItem storage currentItem = idToMarketItem[currentId];
-            items[currentIndex] = currentItem;
-            currentIndex += 1;
-        }
+            if (idToMarketItem[i + 1].owner == address(0)) {
+                uint256 currentId = i + 1;
+                MarketItem storage currentItem = idToMarketItem[currentId];
+                items[currentIndex] = currentItem;
+                currentIndex += 1;
+            }
         }
         return items;
     }

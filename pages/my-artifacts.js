@@ -43,6 +43,7 @@ export default function MyAssets() {
       }
       return item
     }))
+    console.log(items)
     setNfts(items)
     setLoadingState('loaded') 
   }

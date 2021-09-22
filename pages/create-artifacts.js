@@ -60,8 +60,8 @@ export default function CreateItem() {
     
     /* next, create the item */
     let contract = new ethers.Contract(creatifyAddress, Creatify.abi, signer)
-    console.log(url);
-    let transaction = await contract.createArtifact(ipfsHash);
+    console.log("ipfs://"+ipfsHash);
+    let transaction = await contract.createArtifact(url);
     let tx = await transaction.wait();
     let event = tx.events[0]
     let value = event.args[2]
@@ -71,10 +71,11 @@ export default function CreateItem() {
   
     /* then list the item for sale on the marketplace */
     contract = new ethers.Contract(marketplaceAddress, Marketplace.abi, signer)
-    let listingPrice = await contract.getListingPrice()
-    listingPrice = listingPrice.toString()
+    // let listingPrice = await contract.getListingPrice()
+    // listingPrice = listingPrice.toString()
 
-    transaction = await contract.createMarketItem(creatifyAddress, tokenId, price, { value: listingPrice })
+    // transaction = await contract.createMarketItem(creatifyAddress, tokenId, price, { value: listingPrice })
+    transaction = await contract.createMarketItem(creatifyAddress, tokenId, price)
     await transaction.wait()
     router.push('/')
   }

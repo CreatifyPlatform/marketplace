@@ -15,12 +15,12 @@ async function main() {
 
     // We get the contract to deploy
     const Marketplace = await hre.ethers.getContractFactory("Marketplace");
-    const marketplace = await Marketplace.deploy(300);
+    const marketplace = await Marketplace.deploy(30);
     await marketplace.deployed();
     console.log("Marketplace Deployed to: ", marketplace.address);
 
     const Creatify = await hre.ethers.getContractFactory("Creatify");
-    const creatify = await Creatify.deploy("Creatify", "CRFTY", "https://localhost:9080/creatify/artifacts/", marketplace.address);
+    const creatify = await Creatify.deploy("Creatify", "CRFTY", "", marketplace.address);
     await creatify.deployed();
     console.log("Creatify Deployed to:", creatify.address);
 }

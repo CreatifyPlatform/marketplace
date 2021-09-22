@@ -1,0 +1,1 @@
+module.exports = ["Creatify", "CRFTY", "", "0x604860eFB014242c5a49f7ee4095A9527F7BE575"];

@@ -23,7 +23,7 @@ describe("Creatify Marketplace Contract", function () {
 		creator = accounts[1];
 		buyer = accounts[2];
 		marketplace = await Marketplace.new(300);
-		creatify = await Creatify.new("Creatify", "CRFTY", "https://ipfs.infura.io/ipfs/", marketplace.address);
+		creatify = await Creatify.new("Creatify", "CRFTY", "", marketplace.address);
 	});
 	
 	it("Should return the right name and symbol of the token once Creatify is deployed", async function() {
@@ -45,8 +45,8 @@ describe("Creatify Marketplace Contract", function () {
 		const salePrice = ethers.utils.parseUnits("1", "ether");
 
 		/* create two tokens */
-		await creatify.createArtifact("QmbXvKra8Re7sxCMAEpquWJEq5qmSqis5VPCvo9uTA7AcF");
-		await creatify.createArtifact("QmbXvKra8Re7sxCMAEpquWJEq5qmSqis5VPCvo9uTA7AcF");
+		await creatify.createArtifact("https://ipfs.infura.io/ipfs/QmbXvKra8Re7sxCMAEpquWJEq5qmSqis5VPCvo9uTA7AcF");
+		await creatify.createArtifact("https://ipfs.infura.io/ipfs/QmbXvKra8Re7sxCMAEpquWJEq5qmSqis5VPCvo9uTA7AcF");
 
 		console.log(await creatify.tokenURI(1));
 
